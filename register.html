@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/register.css"> 
+</head>
+<body>
+    <div class="navbar">
+        <h1>BAKE HOUSE</h1>
+    </div>
+<form method="post" id="register-form" class="container" action="register.php">
+    <h1>Welcome </h1>
+    <p>Sign up to your account</p>
+        <div class="input">
+            <h1>Full Name</h1>
+            <input type="text" name="fullname" placeholder="Enter your full name" required>
+        </div>
+        <div class="input">
+            <h1>Email</h1>
+            <input type="email" name="email" placeholder="Enter your Email" required>
+        </div>
+        <div id="phoneno" class="input">
+            <h1>Phone Number</h1>
+            <input type="tel" name="phone" placeholder="Enter your Phone Number" required>
+        </div>
+        <div class="input">
+            <h1>Password</h1>
+            <input type="password" name="password" placeholder="Enter your Password" required>
+        </div>
+        <div class="submit">
+            <button type="submit">REGISTER</button>
+            <p>Already have an account? <a href="Dashboard.html" onclick="showLoginForm()">Login</a></p>
+        </div>
+</form>
+<script>
+    function showLoginForm() {
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-form').style.display = 'flex';
+    }
+    //Validation of phone number
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var phoneNumber = document.querySelector('input[name="phone"]').value;
+
+        // This regex matches a phone number with 10 digits
+        var regex = /^\d{10}$/;
+
+        if (!regex.test(phoneNumber)) {
+            alert('Invalid phone number. Please enter a 10-digit phone number.');
+            return;
+        }
+        // Continue with form submission
+    });
+</script>
+</body>
+</html>
