@@ -1,9 +1,8 @@
-/* 
-#FDF7E4
+/* #FDF7E4
 #FAEED1
 #DED0B6
-#BBAB8C
-*/
+#BBAB8C */
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 *{
     color: black;
@@ -126,7 +125,7 @@ button{
     width: 25vw;
     height: 6vh;
     background-color: #BBAB8C;
-    color: whitesmoke;
+    color:burlywood;
     border:none;
     font-weight: 600;
     margin-top: 1vh;

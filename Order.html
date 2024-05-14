@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakery Order Form</title>
+    <link rel="stylesheet" href="css/Order.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Order Your Cake</h2>
+        <form action="process_order.php" method="post" enctype="multipart/form-data">
+            <label for="size">Select Size:</label>
+            <select name="size" id="size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+
+            <label for="flavour">Select Flavour:</label>
+            <select name="flavour" id="flavour">
+                <option value="vanilla">Vanilla</option>
+                <option value="chocolate">Chocolate</option>
+                <option value="strawberry">Strawberry</option>
+                <option value="red_velvet">Red Velvet</option>
+            </select>
+
+            <label for="toppings">Additional Toppings:</label>
+            <input type="text" name="toppings" id="toppings" placeholder="Enter additional toppings">
+
+            <label for="image">Upload Picture:</label>
+            <input type="file" name="image" id="image">
+
+            <input type="submit" value="Place Order">
+        </form>
+    </div>
+</body>
+</html>
