@@ -1,0 +1,96 @@
+body {
+    background-color: #FDF7E4;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    background-color: #FAEED1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: black;
+}
+
+hr{
+    border: 2px solid #BBAB8C;
+
+
+}
+
+#order-summary {
+    background-color: #DED0B6;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.shape {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.shape.round {
+    border-radius: 50%;
+    background-color: #f9c77e;
+}
+
+.shape.square {
+    background-color: #f9c77e;
+}
+
+.shape.heart {
+    position: relative;
+    width: 50px;
+    height: 45px;
+}
+
+.shape.heart:before,
+.shape.heart:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    border-radius: 50px 50px 0 0;
+    background: #f9c77e;
+}
+
+.shape.heart:before {
+    left: 50px;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.shape.heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #DED0B6;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #BBAB8C;
+    color: #fff;
+}

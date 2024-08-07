@@ -21,6 +21,46 @@ label {
     margin-bottom: 10px;
     font-weight: bold;
 }
+.cake-shape {
+    left: 60%;
+    display: inline-block;
+    margin-right:20px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.cake-container{
+    width: 100px;;
+    height:100px;
+    border: 1px solid #FAEED1;
+}
+.cake-shape input[type="radio"] {
+    display: none;
+    /* position: absolute;
+    /* opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; */ 
+}
+.round-cake {
+    width: 100px;
+    height: 100px;
+    background-color: #f9c77e;
+    outline: 2px solid #BBAB8C;
+    clip-path: circle(50%);
+    
+}
+.square-cake {
+    width: 100px;
+    height: 100px;
+    background-color: #f9c77e;
+    outline: 2px solid #BBAB8C;
+}
+.heart-cake{
+    width: 100px;
+    height:100px;
+    outline: 2px solid #BBAB8C;
+}
 input[type="text"], select {
     width: 100%;
     padding: 10px;
@@ -41,4 +81,17 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #BBAB8C;
     color: #fff;
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #printableArea, #printableArea * {
+        visibility: visible;
+    }
+    #printableArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 }

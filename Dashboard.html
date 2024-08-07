@@ -5,64 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/Dashboard.css"> 
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">  
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="navbar">
-        <h1>BAKE HOUSE</h1>
-    <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About Us</a>
-        <a href="Gallery.html">Gallery</a>
-        <a href="Order.html">Order</a>
-        <a href="#contact">Contact Us</a>
-        <a href="#my-orders">My Orders</a>
-        <button id="login-btn">LOGIN</button>
+        <div class="nav-links">
+            <h1>BAKE HOUSE</h1>
+            <a href="#hero">Home</a>
+            <a href="#about">About Us</a>
+            <a href="Order.html">Order</a>
+        </div>
+        <div class="nav-logos">
+            <span class="material-symbols-outlined">search</span>
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="material-symbols-outlined" id="login-btn">account_circle</span>
+        </div>
     </div>
-</div>
-<!-- LOGIN FORM  -->
-<form id="login-form" class="container" action="Login.php">
-    <h1>Welcome Back</h1>
-    <p>Log in your account</p>
-    <div class="input">
-        <h1>Email</h1>
-        <input type="email" name="email" placeholder="Enter your Email" required>
-    </div>
-    <div class="input">
-        <h1>Password</h1>
-        <input type="password" name="password" placeholder="Enter your Password" required>
-    </div>
-    <div class="submit">
-        <button type="submit">LOGIN</button>
-        <a href="#">Forgot Password?</a>
-        <p>Don't have an account? <a href="register.html">Register</a></p>
-    </div> 
-</form>
-<section id="hero">
-    <h1>Baked with passion,<br/> served with love</h1>
-    <p>Discover the artistry of indulgence at BakeHouse, where each creation is a symphony of flavor and passion. From exquisite pastries to artisanal delights, let us elevate your taste experience with every bite.</p>
-    <button onclick="window.location.href='Order.html';">Order here</button>
-    <img class="custom-shape" src="Images/takuya-nagaoka-fENvSZUzbzU-unsplash.jpg" alt="bakery image">
-</section>
+    <section id="hero">
+        <div class="hero-text">
+            <h1>Baked with passion,<br/> served with love</h1>
+            <p>Discover the artistry of indulgence at BakeHouse, let us elevate your taste experience with every bite.</p>
+            <div class="search">
+                <label class="label">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" class="input" placeholder="What cake are you craving?"/>
+                </label>
+                <button type="submit">Search</button>
+            </div>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+    <section id="recommendation">
+        <p>POPULAR FLAVORS</p>
+        <h1>Popular flavors for you</h1>
+        <div class="carousel">
+            <form class="card" method="post" action="PHP/addcart.php">
+                <img src="Images/kaouther-djouada-hcEDfkiVmMI-unsplash.jpg" alt="Chocolate Cake"/>
+                <h2>Chocolate Cake</h2>
+                <div class="inner-card">
+                    <h3>Starting Price</br><p>Ksh 2,700</p></h3>
+                    <span class="material-symbols-outlined">Favorite</span>   
+                </div>
+                <span class="material-symbols-outlined">shopping_cart</span>
+            </form>
+            <form  class="card" method="post" action="PHP/addcart.php">
+                <img src="Images/banana cake.jpeg" alt="banana cake"/>
+                <h2>Banana cake</h2>
+                <div class="inner-card">
+                    <h3>Starting Price</br><p>Ksh 2,500</p></h3>
+                    <span class="material-symbols-outlined">Favorite</span>   
+                </div>
+                <span class="material-symbols-outlined">shopping_cart</span>
+            </form>
+            <form  class="card" method="post" action="PHP/addcart.php">
+                <img src="Images/lemon cake.avif" alt="lemon cake"/>
+                <h2>Lemon cake</h2>
+                <div class="inner-card">
+                    <h3>Starting Price<br/><p>Ksh 2,600</p></h3>
+                    <span class="material-symbols-outlined fav-icon">Favorite</span>
+                </div>
+                <span class="material-symbols-outlined">shopping_cart</span>
+            </form>
+        </div>
+        <div class="view-more">
+            <a href="PHP/gallery.php">View More</a>
+        </div>
+    </section>
+    <section id="about-us">
+        <div class="about-top">
+            <h1>About Us</h1>
+            <p><a href="#hero">Home</a> . <a href="#about-us">About Us</a></p>
+        </div>
+        <div class="about-middle">
+            <img src="/Images/blake-carpenter-7sMvmabgXAo-unsplash.jpg" alt="Profile Picture">
+            <div class="about-text">
+                <h1>Founder's Remarks</h1>
+                <p>At BakeHouse, we believe that every cake has a story to tell. Our story began in 2010 when we opened our first bakery in Nairobi. We have since grown to become one of the leading bakeries in the country. Our cakes are made with the finest ingredients and baked with love. We take pride in creating delicious cakes that are perfect for any occasion. Whether you are celebrating a birthday, wedding, or any other special event, we have the perfect cake for you. Our team of talented bakers and decorators work hard to create beautiful and delicious cakes that will delight your taste buds and impress your guests. We are committed to providing our customers with the best possible experience and look forward to serving you soon.</p>
+                <div class="card">
+                    <img src="Images/photo-1571115177098-24ec42ed204d.avif" alt="Profile Image" class="card_load">
+                    <div class="card_load_extreme_title">
+                        <div class="h1">Jane karuga</div>
+                        <div class="p">Founder and CEO</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-bottom">
+            <p>Questions? Our staff will help find the cake that's perfect for you</p>
+            <a href="#">Get In Touch</a>
+        </div>
+    </section>
+    
+</body>
 <script>
-    function btndisplay(event){
-        var login = document.querySelector('.container');
-        if(login.style.display === 'flex'){
-                login.style.display = 'none';
-            }
-            else{
-                login.style.display = 'flex';
-                }
-            event.stopPropagation();
-    }
-    document.getElementById('login-btn').addEventListener('click', btndisplay);
-
-    document.addEventListener('click', function(event) {
-        var login = document.querySelector('.container');
-        if (login.style.display === 'flex' && !login.contains(event.target)) {
-            login.style.display = 'none';
-        }
+    const select=document.getElementById('weight');
+    select.addEventListener('change',()=>{
+        const weight=select.value;
+        const price=weight.split(":")[1];
+        console.log(price);
     });
 </script>
-</body>
 </html>
