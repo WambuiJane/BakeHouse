@@ -29,11 +29,11 @@ Welcome to **BakeHouse**, where we bring the art of baking to your fingertips. T
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Bakery.git
+   git clone https://github.com/yourusername/BakeHouse.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd Bakery
+   cd BakeHouse
    ```
 3. Set up your database and update the connection details in `PHP/connect.php`.
 4. Run the project on a local server.
