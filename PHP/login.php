@@ -3,9 +3,9 @@ session_start();
 include 'connect.php';
 
 // Check if the user is already logged in
-if(isset($_SESSION['email'])) {
-    header("Location: ../Dashboard.html");
-    exit(); // Ensure script termination after redirect
+if (isset($_SESSION['email'])) {
+    header("Location: ../Dashboard.php");
+    exit(); 
 }
 
 $email = $_POST['email'];
@@ -20,9 +20,9 @@ $stmt->bind_result($existsemail);
 $stmt->fetch();
 $stmt->close();
 if (!$existsemail) {
-    $error = "Invalid email or password!";
-    header('Location: ../index.php?error=' . urlencode($error)); // Use urlencode to handle special characters
-    exit(); // Ensure script termination after redirect
+    $error = "Invalid password or email!";
+    header('Location: ../index.php?error=' . urlencode($error));
+    exit();
 }
 
 // Check the password for the existing email
@@ -35,15 +35,15 @@ $stmt->fetch();
 $stmt->close();
 $conn->close();
 
-if (password_verify($password, $hashedPass)) { 
+if (password_verify($password, $hashedPass)) {
     $_SESSION['email'] = $email;
     // Regenerate session ID to prevent session fixation
     session_regenerate_id(true);
-    header("Location: ../Dashboard.html");
-    exit(); 
+    header("Location: ../Dashboard.php");
+    exit();
 } else {
     $error = "Invalid password or email!";
-    header('Location: ../index.php?error=' . urlencode($error)); 
-    exit(); // Ensure script termination after redirect
+    header('Location: ../index.php?error=' . urlencode($error));
+    exit();
 }
 ?>

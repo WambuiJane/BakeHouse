@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>User Login</title>
     <link rel="stylesheet" href="css/register.css"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -29,7 +29,7 @@
     <p>Log in your account</p>
     <div class="input">
         <h1>Email</h1>
-        <input type="email" name="email" placeholder="Enter your Email" required>
+        <input type="email" name="email" style="font-family:Arial, FontAwesome;" placeholder="&#xf0e0;  Enter your Email" required>
     </div>
     <div class="input">
         <h1>Password</h1>
@@ -37,7 +37,7 @@
     </div>
     <div class="submit">
         <button type="submit">LOGIN</button>
-        <p>Forgot Password? <a href="#">Reset</a></p>
+        <p>Forgot Password? <a href="PHP/verify_code.php">Reset</a></p>
         <p>Don't have an account? <a href="signup.php">Register</a></p>
     </div> 
 </form>

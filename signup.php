@@ -6,8 +6,7 @@
     <title>Admin Login</title>
     <link rel="stylesheet" href="css/register.css"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="navbar">
@@ -28,19 +27,19 @@
             <p>Sign up to your account</p>
                 <div class="input">
                     <h1>Full Name</h1>
-                    <input type="text" name="fullname" placeholder=" &#xe7fd;  Enter your full name" required>
+                    <input type="text" name="fullname" style="font-family:Arial, FontAwesome;" placeholder="&#xf007;  Enter your full name" required>
                 </div>
                 <div class="input">
                     <h1>Email</h1>
-                    <input type="email" name="email" placeholder=" &#xF0e0; Enter your Email" required>
+                    <input type="email" name="email" style="font-family:Arial, FontAwesome;" placeholder="&#xf0e0;  Enter your Email" required>
                 </div>
                 <div id="phoneno" class="input">
                     <h1>Phone Number</h1>
-                    <input type="tel" name="phone" placeholder="Enter your Phone Number" required>
+                    <input type="tel" name="phone" style="font-family:Arial, FontAwesome;" placeholder="&#xf095;  Enter your Phone Number" required>
                 </div>
                 <div class="input">
                     <h1>Password</h1>
-                    <input type="password" name="password" placeholder="Enter your Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                    <input type="password" name="password"  placeholder="Enter your Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                 </div>
                 <div class="submit">
                     <button type="submit">REGISTER</button>

@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt2->execute();
             
                     $_SESSION['email'] = $email;
-                    header('Location: ../Dashboard.html');
+                    header('Location: ../Dashboard.php');
                 } else {
                     $stmt3 = $conn->prepare("DELETE FROM user WHERE email = ?");
                     $stmt3->bind_param("s", $email);
