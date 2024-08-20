@@ -8,6 +8,8 @@ body{
     font-family: "outfit", sans-serif;
     overflow-x: hidden;
     background-image: url('../Images/photo-1571115177098-24ec42ed204d.avif');
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,247,228,1) 41%, rgba(253,247,228,1) 100%);
 
     .navbar{
         width: 80%;
@@ -160,4 +162,13 @@ body{
         }
     }
 
+}
+button{
+    border: 1px solid whitesmoke;
+}
+button:hover{
+    background-color: #BBAB8C;
+    color: whitesmoke;
+    cursor: pointer;
+    border: 1px solid #BBAB8C;
 }

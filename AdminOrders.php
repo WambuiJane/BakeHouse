@@ -76,11 +76,11 @@ $result = $stmt->get_result();
 
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['OrderID']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['PayPalOrderID']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['OrderDate']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['Order_Id']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['Paypal_Id']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['Date']) . "</td>";
             echo "<td>" . htmlspecialchars($row['OrderStatus']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['total']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['Price']) . "</td>";
             echo "</tr>";
         }
         echo "</table>";

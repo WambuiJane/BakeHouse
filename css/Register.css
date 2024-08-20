@@ -6,6 +6,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 *{
     color: black;
+    padding: 0;
+    margin: 0;
 }
 body{
     font-family: 'Raleway', sans-serif;
@@ -16,22 +18,26 @@ body{
     flex-direction: column;
     justify-content: start;
     align-items:center;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,247,228,1) 41%, rgba(253,247,228,1) 100%);
 }
 
 .navbar{
-    height:7dvh;
+    height:8dvh;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: #FDF7E4;
-    /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
     margin:0;
+    background-color: transparent;
 
     h1{
-        margin-left: 2dvw;
+        height: 100%;
+        padding-left: 2dvw;
+        display: flex;
+        align-items: center;
         font-size: 18px;
-        background-color: #FDF7E4;
+        background-color: rgba(253,247,228,1);
 
     }
     p{
@@ -39,97 +45,112 @@ body{
         color:red;
         animation: slide 10s linear infinite;
     }
+
+    .buttons{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 1vw;
+        width: max-content;
+        padding: 0 1vw;
+
+        a:hover{
+            color: #FAEED1;
+        }
+    }
 }
 .main{
-    width: 100%;
+    width: 80%;
     height:90%;
+    margin-top: 1vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #ffffff;
+    border-radius: 1vw;
+    overflow: hidden;
 
     .image{
-        width: 30%;
-        height: 98%;
+        width: 40%;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         background-image: url('../Images/blake-carpenter-7sMvmabgXAo-unsplash.jpg');
         background-size: cover;
-        border-radius: 2dvw;
     }
     .container{
-        width:50%;
+        width:60%;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        row-gap: 4dvh;
+        row-gap: 2dvh;
 
         h1{
-            width:60%;
+            width:80%;
             height: max-content;
             text-align: left;
             font-size: 2em;
             font-weight: 400;
-            margin: 0;
         }
 
         p{
-            width:60%;
+            width:80%;
             height: 4dvh;
             text-align: left;
-            font-size: 1em;
-            margin: 0;
+            font-size: 16px;
         }
 
         .input{
-            width: 60%;
+            width: 80%;
             height: max-content;
             display: flex;
             flex-direction: column;
             justify-content: start;
-            align-items: center;
+            align-items: start;
 
             h1{
-                width:100%;
+                width:70%;
                 height: max-content;
                 text-align: left;
                 font-size: 1em;
             }
 
             input{
-                width: 98%;
+                width: 70%;
                 padding-left: 2%;
-                height: 7dvh;
-                border: none;
+                height: 6dvh;
                 border: 1px solid black;
                 border-radius: 1dvh;
                 outline: none;
-                font-size: 1em;
+                font-size: 16px;
             }
         }
         .submit{
-            width: 100%;
+            width: 80%;
             height: max-content;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+            align-items: start;
             border-radius: 1vw;
             cursor: pointer;
 
             p{
                 font-size: 1em;
+                width: max-content;
             }
 
             button{
-                width: 60%;
-                height: 7dvh;
+                width: 70%;
+                height: 6dvh;
                 border: none;
                 background-color: #FAEED1;
-                font-size: 1.5em;
+                font-size: 16px;
                 cursor: pointer;
+                border-radius: 1dvh;
             }
 
             button:hover{

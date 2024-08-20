@@ -10,6 +10,8 @@ body{
     overflow-y: scroll;
     font-family: "outfit", sans-serif;
     line-height: 1;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,247,228,1) 41%, rgba(253,247,228,1) 100%);
 
     }
 .navbar{

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,23 @@
     <link rel="stylesheet" href="../css/Register.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
 </head>
+
 <body>
     <div class="navbar">
         <h1>BAKE HOUSE</h1>
         <?php
-            if (isset($_GET['feedback'])) {
-                echo "<p>" . htmlspecialchars($_GET['feedback']) . "</p>";  
-                }
+        if (isset($_GET['feedback'])) {
+            echo "<p>" . htmlspecialchars($_GET['feedback']) . "</p>";
+        }
         ?>
+        <div class="buttons">
+            <a href="index.php">Home</a>
+            <a href="signup.php">Sign Up</a>
+            <a href="login.php">Login</a>
+        </div>
     </div>
     <div class="main">
         <div class="image">
@@ -35,6 +42,7 @@
         </form>
     </div>
 </body>
+
 </html>
 
 <?php
@@ -66,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Generate a secure verification code
             $verificationCode = rand(100000, 999999);
             $expirationTime = date('Y-m-d H:i:s', strtotime('+1 hour'));
-    
+
             // Store the verification code in the verification table
             $storeVerificationCodeQuery = "INSERT INTO passwordreset (email, reset_code, expiration_time) VALUES (?, ?, ?)";
             $storeStmt = $conn->prepare($storeVerificationCodeQuery);
@@ -80,8 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->isSMTP();
                     $mail->Host = 'smtp.gmail.com';
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'karugajane511@gmail.com'; 
-                    $mail->Password = 'qetu xeyp weqs dtbz'; 
+                    $mail->Username = 'karugajane511@gmail.com';
+                    $mail->Password = 'qetu xeyp weqs dtbz';
                     $mail->SMTPSecure = 'tls';
                     $mail->Port = 587;
                     $mail->setFrom('Karugajane511@gmail.com', 'BakeHouse');
@@ -93,7 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $feedback = 'Verification code sent successfully. Please check your email.';
                     header('Location: reset_password.php?feedback=' . $feedback);
                     exit();
-
                 } catch (Exception $e) {
                     $feedback = 'Error sending verification code: ' . $mail->ErrorInfo;
                 }
@@ -111,4 +118,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $feedback = 'Method not allowed.';
 }
 ?>
-

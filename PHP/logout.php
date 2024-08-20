@@ -2,15 +2,13 @@
 // Start the session
 session_start();
 
-if(isset($_SESSION['user'])) {
-    // Unset all of the session variables
-    unset($_SESSION['user']);
+if(isset($_SESSION['email'])) {
+    unset($_SESSION['email']);
 
     if(isset($_SESSION['cart'])) {
-        // Unset all of the session variables
         unset($_SESSION['cart']);
     }
-    header('location: ../index.php');
+    header('location: ../dashboard.php');
 
 }
 if(isset($_SESSION['admin'])) {
@@ -18,3 +16,8 @@ if(isset($_SESSION['admin'])) {
     unset($_SESSION['admin']);
     header('location: ../adminlogin.php');
 }
+else{
+    echo "You are not logged in";
+
+}
+?>

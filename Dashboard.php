@@ -1,5 +1,38 @@
 <?php
 include 'PHP/session_check.php';
+include 'PHP/connect.php';
+
+$sql = "SELECT * FROM verification WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $_SESSION['email']);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+if ($row > 0) {
+    $display = "flex";
+} else {
+    $display = "none";
+}
+
+// post action
+if (isset($_POST['verification'])) {
+    $code = $_POST['verification'];
+    $sql = "SELECT * FROM verification WHERE email = ? AND vercode = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $_SESSION['email'], $code);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    if ($row > 0) {
+        $sql = "DELETE FROM verification WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $_SESSION['email']);
+        $stmt->execute();
+        echo "<meta http-equiv='refresh' content='0'>";
+    } else {
+        echo "<script>alert('Invalid verification code')</script>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,15 +47,17 @@ include 'PHP/session_check.php';
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
-    <style>
-        /* Ensure the dropdown menu is hidden by default */
-        .dropdown-menu {
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
+    <div class="verify" style="display: <?php echo $display; ?>;">
+        <form action="" method="POST">
+            <h1>Verify Your Account</h1>
+            <p>Check your email for a verification code</p>
+            <input type="text" name="verification" placeholder="Enter verification code">
+            <button type="submit">Verify</button>
+        </form>
+    </div>
     <div class="navbar">
         <div class="nav-links">
             <h1>BAKE HOUSE</h1>
@@ -35,8 +70,8 @@ include 'PHP/session_check.php';
             <span class="material-symbols-outlined" onclick="window.location.href='Cart.php'">shopping_cart</span>
             <span class="material-symbols-outlined" onclick="toggleDropdown()">account_circle</span>
             <div class="dropdown-menu" id="dropdown-menu">
-                <a href="settings.php">Profile</a>
-                <a href="PHP/logout.php">Log Out</a>
+                <a href="settings.php">Profile <span class="material-symbols-outlined">person</span></a>
+                <a href="PHP/logout.php">Log Out <span class="material-symbols-outlined">logout</span></a>
             </div>
         </div>
         <div class="button" <?php echo $button; ?>>
@@ -80,14 +115,24 @@ include 'PHP/session_check.php';
                 $stmt->execute();
                 $productResult = $stmt->get_result();
 
-                while ($product = $productResult->fetch_assoc()) {
-                    echo "<div class='carousel-item'>";
-                    echo "<div class='card'>";
-                    echo "<img src='Images/" . $product["image"] . "' alt='" . $product["name"] . "'>";
-                    echo "<h3>" . $product["name"] . "</h3>";
-                    echo "<p>$" . $product["price"] . "</p>";
+                while ($row = $productResult->fetch_assoc()) {
+                    echo "<form class='card' method='post' action='PHP/addcart.php'>";
+                    echo "<img src='Images/" . $row["image"] . "' alt='" . $row["name"] . "'>";
+                    echo "<h2>" . $row["name"] . "</h2>";
+                    echo "<div class='inner-card'>";
+                    
+                    if ($row["Quantity"] < 1) {
+                        echo "<h3><span>Out of stock</span></h3>";
+                    }
+                    else{
+                        echo "<h3><p>$" . $row["price"] . "</p></h3>";
+                    }
+                    echo "<span class='material-symbols-outlined'>favorite</span>";
                     echo "</div>";
-                    echo "</div>";
+                    echo "<span id='shopping-cart' class='material-symbols-outlined'>shopping_cart</span>";
+                    echo "<input type='hidden' name='productId' value='" . $row["id"] . "'>";
+                    echo "<input type='hidden' name='action' value='add'>";
+                    echo "</form>";
                 }
             }
             ?>
@@ -98,10 +143,11 @@ include 'PHP/session_check.php';
     </section>
 
     <section id="about-us">
-        <div class="about-top">
+        <p>ABOUT US</p>
+        <!-- <div class="about-top">
             <h1>About Us</h1>
             <p><a href="#hero">Home</a> . <a href="#about-us">About Us</a></p>
-        </div>
+        </div> -->
         <div class="about-middle">
             <img src="Images/blake-carpenter-7sMvmabgXAo-unsplash.jpg" alt="Profile Picture">
             <div class="about-text">
@@ -135,6 +181,14 @@ include 'PHP/session_check.php';
             var dropdownMenu = document.getElementById("dropdown-menu");
             dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
         }
+        //script to trigger the cart button to add to cart
+        const cartButtons = document.querySelectorAll('#shopping-cart');
+        cartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                button.parentElement.submit();
+            });
+        });
     </script>
 </body>
+
 </html>

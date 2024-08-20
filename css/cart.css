@@ -10,6 +10,8 @@ body {
   overflow-y: scroll;
   font-family: "outfit", sans-serif;
   line-height: 1;
+  background: rgb(255,255,255);
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,247,228,1) 41%, rgba(253,247,228,1) 100%);
 }
 .navbar {
   width: 80%;
@@ -118,6 +120,7 @@ body {
         }
       }
 
+
       td:last-child button {
         width: 10vw;
         height: 80%;
@@ -131,6 +134,9 @@ body {
 
       }
     }
+    tr:last-child td, tr:nth-last-child(2) td{
+      height: max-content;
+    }
 
     th,
     td {
@@ -139,12 +145,13 @@ body {
       font-weight: 500;
       padding: 10px;
       text-align: left;
-      height: max-content;
       display: flex;
       flex-wrap: wrap;
       justify-content: start;
       align-items: center;
       column-gap: 2dvh;
+      height: 15vh;
+      overflow-y: auto;
 
       a {
         width: 80%;
@@ -157,8 +164,8 @@ body {
       }
 
       img{
-        width: 20dvh;
-        height: 20dvh;
+        width: 10dvh;
+        height: 10dvh;
         border-radius: 1dvh;
         
       }
@@ -166,6 +173,7 @@ body {
     th {
       font-weight: bold;
       font-size: 18px;
+      /* height: max-content; */
     }
   }
 }

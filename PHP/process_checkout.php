@@ -106,7 +106,7 @@ function capturePayment($orderId) {
 
 function insertOrder($total, $paypalId, $status) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO orders (OrderStatus, Total, PayPalID) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tickets (OrderStatus, Total, PayPalID) VALUES (?, ?, ?)");
     $stmt->bind_param("sds", $status, $total, $paypalId);
     $stmt->execute();
     $orderId = $stmt->insert_id;
@@ -116,7 +116,7 @@ function insertOrder($total, $paypalId, $status) {
 
 function updateOrder($orderId, $status) {
     global $conn;
-    $stmt = $conn->prepare("UPDATE orders SET OrderStatus = ? WHERE OrderID = ?");
+    $stmt = $conn->prepare("UPDATE tickets SET OrderStatus = ? WHERE OrderID = ?");
     $stmt->bind_param("ss", $status, $orderId);
     $stmt->execute();
     $stmt->close();
@@ -173,10 +173,91 @@ if ($token) {
             );
             
             echo "Order processed successfully. Order ID: $orderId";
+            $sql = "SELECT  id FROM  users where email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $_SESSION['email']);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $userId = $row['id'];
+
+
+            //  insert multiple cakes
+            if($_SESSION['customCart']){
+                $customCakeId = $_SESSION['customCart'];
+                foreach ($customCakeId as $customCakeId => $customCake) {
+                    $sql = "INSERT INTO orders (User_Id, Paypal_Id, Cake_Id) VALUES (?, ?, ?)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("isi", $userId, $paypalId, $customCakeId);
+                } 
+                if($_SESSION['cart']){
+                    $cart = $_SESSION['cart'];
+                    foreach ($cart as $productId => $quantity) {
+                        $sql = "INSERT INTO orders (User_Id, Paypal_Id, Cake_Id) VALUES (?, ?, ?)";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("isi", $userId, $paypalId, $productId);
+                    }
+                    $feedback = "Order processed successfully. Order ID: $orderId";
+                }
+                else{
+                    echo "Order processed successfully. Order ID: $orderId";
+                }
+                header('Location: ../gallery.php?feedback=Order processed successfully. Order ID: ' . $orderId);
+            }
+            else {
+                if($_SESSION['cart']){
+                    $cart = $_SESSION['cart'];
+                    foreach ($cart as $productId => $quantity) {
+                        $sql = "INSERT INTO orders (User_Id, Paypal_Id, Cake_Id) VALUES (?, ?, ?)";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("isi", $userId, $paypalId, $productId);
+                    }
+                    $feedback = "Order processed successfully. Order ID: $orderId";
+                }
+                else{
+                    $feedback = "Order processed successfully. Order ID: $orderId";
+                }
+
+            }
+            header('Location: ../gallery.php?feedback= '.$feedback);
         } else {
             $errorMessage = $captureResult['details'][0]['issue'] ?? 'Unknown error occurred';
             logDetails("Payment capture failed", ['error' => $errorMessage]);
             echo "Failed to process the payment: $errorMessage. Please try again or contact support.";
+            
+            if($_SESSION['customCart']){
+                $customCakeId = $_SESSION['customCart'];
+                foreach ($customCakeId as $customCakeId => $customCake) {
+                    echo $customCakeId;
+                    echo $customCake;
+                } 
+                if($_SESSION['cart']){
+                    $cart = $_SESSION['cart'];
+                    foreach ($cart as $productId => $quantity) {
+                        echo $productId;
+                        echo $quantity;
+                    }
+                    $feedback = "Order processed successfully. Order ID: $orderId";
+                }
+                else{
+                    // echo "Order processed successfully. Order ID: $orderId";
+                }
+                // header('Location: ../gallery.php?feedback=Order processed successfully. Order ID: ' . $orderId);
+            }
+            else {
+                if($_SESSION['cart']){
+                    $cart = $_SESSION['cart'];
+                    foreach ($cart as $productId => $quantity) {
+                        echo $productId;
+                        echo $quantity;
+                    }
+                }
+                else{
+                    $feedback = "Order failed. Order ID: $orderId";
+                }
+
+            }
+
         }
     } else {
         error_log("Order details not found for token: $token");

@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['email'])) {
+    $feedback = "You must be logged in to add items to cart";
+    header('Location: ../index.php? feedback=' . $feedback);
+    exit();
+}
 include 'connect.php';
 
 if (!isset($_SESSION['cart'])) {
@@ -15,6 +20,14 @@ $action = isset($_POST['action']) ? $_POST['action'] : '';
 switch ($action) {
     case 'add':
         $productId = $_POST['productId'];
+        $sql = "SELECT * FROM products WHERE id = $productId";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        if ($row['Quantity'] < 1) {
+            $feedback = "Product out of stock";
+            header('Location: ../gallery.php?feedback=' . $feedback);
+            exit();
+        }
         if (isset($_SESSION['cart'][$productId])) {
             $_SESSION['cart'][$productId]++;
         } else {
@@ -34,7 +47,6 @@ switch ($action) {
         }
         $feedback = "Product added to cart";
         header('Location: ../gallery.php?feedback=' . $feedback);
-
         break;
 
     case 'increase':
@@ -42,6 +54,7 @@ switch ($action) {
         if (isset($_SESSION['cart'][$productId])) {
             $_SESSION['cart'][$productId]++;
         }
+        header('Location: ../cart.php');
         break;
 
     case 'decrease':
@@ -53,6 +66,7 @@ switch ($action) {
                 unset($_SESSION['cart'][$productId]);
             }
         }
+        header('Location: ../cart.php');
         break;
 
     case 'remove':
@@ -60,6 +74,7 @@ switch ($action) {
         if (isset($_SESSION['cart'][$productId])) {
             unset($_SESSION['cart'][$productId]);
         }
+        header('Location: ../cart.php');
         break;
 
     case 'remove_custom':
@@ -67,11 +82,13 @@ switch ($action) {
         if (isset($_SESSION['customCart'][$customCakeId])) {
             unset($_SESSION['customCart'][$customCakeId]);
         }
+        header('Location: ../cart.php');
         break;
 
     case 'clear':
         $_SESSION['cart'] = [];
         $_SESSION['customCart'] = [];
+        header('Location: ../cart.php');
         break;
 }
 exit();
