@@ -5,7 +5,7 @@ include 'connect.php';
 // Check if the user is already logged in
 if(isset($_SESSION['admin'])) {
     header("Location: ../admin.php");
-    exit(); // Ensure script termination after redirect
+    exit();
 }
 
 $email = $_POST['email'];
@@ -42,7 +42,7 @@ if ($password == $hashedPass) {
     header("Location: ../admin.php");
     exit(); 
 } else {
-    $error = "Invalid password or email!";
+    $error = "Invalid password!";
     header('Location: adminlogin.php?error=' . urlencode($error)); 
     exit(); 
 }

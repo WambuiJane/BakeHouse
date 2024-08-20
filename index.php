@@ -20,6 +20,12 @@
             }
         ?>
         </p>
+
+        <div class="buttons">
+            <a href="index.php">Home</a>
+            <a href="signup.php">Sign Up</a>
+            <a href="adminlogin.php">Admin</a>
+        </div>
     </div>
     <div class="main">
         <div class="image">
@@ -33,12 +39,12 @@
     </div>
     <div class="input">
         <h1>Password</h1>
-        <input type="password" name="password" placeholder="Enter your Password" required>
+        <input type="password" name="password" style="font-family:Arial, FontAwesome;" placeholder="&#xf023;  Enter your Password" required>
     </div>
     <div class="submit">
         <button type="submit">LOGIN</button>
         <p>Forgot Password? <a href="PHP/verify_code.php">Reset</a></p>
-        <p>Don't have an account? <a href="signup.php">Register</a></p>
+        <p>New to BakeHouse? <a href="signup.php">Register</a></p>
     </div> 
 </form>
 </div>

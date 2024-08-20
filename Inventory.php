@@ -54,10 +54,10 @@ $result = $stmt->get_result();
         <?php
         echo "<table>";
         echo "<tr>";
-        echo "<th>Order ID</th>";
         echo "<th>Image</th>";
         echo "<th>Product Name</th>";
         echo "<th>Price</th>";
+        echo "<th>Quantity</th>";
         echo "<th>Category</th>";
         echo "<th>Actions</th>";
         echo "</tr>";
@@ -73,16 +73,15 @@ $result = $stmt->get_result();
 
 
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
             echo "<td>";
             echo '<img src="images/' . htmlspecialchars($row["image"]) . '" alt="' . htmlspecialchars($row["name"]) . '">';
             echo "</td>";
             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
             echo "<td>" . htmlspecialchars($row['price']) . "</td>";  
+            echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
             echo "<td>" . htmlspecialchars($category['name']) . "</td>";
             echo "<td>";
             echo '<button onclick="editProduct(' . htmlspecialchars($row['id']) . ')">Edit</button>';
-            echo '<button onclick="deleteProduct(' . htmlspecialchars($row['id']) . ')">Delete</button>';
             echo "</td>";
             echo "</tr>";
         }
@@ -123,6 +122,8 @@ $result = $stmt->get_result();
                 <input type="text" name="edit_name" id="edit_name" required>
                 <label for="edit_price">Price</label>
                 <input type="number" name="edit_price" id="edit_price" required>
+                <label for="edit_quantity">Product Quantity</label>
+                <input type="number" name="quantity" id="edit_quantity">
                 <label for="edit_category">Category</label>
                 <select name="edit_category" id="edit_category">
                     <?php
@@ -174,6 +175,7 @@ $result = $stmt->get_result();
                                 alert('Error fetching product details');
                             } else {
                                 document.getElementById('edit_id').value = data.id;
+                                document.getElementById('edit_quantity').value = data.Quantity;
                                 document.getElementById('edit_name').value = data.name;
                                 document.getElementById('edit_price').value = data.price;
                                 document.getElementById('edit_category').value = data.category_id;

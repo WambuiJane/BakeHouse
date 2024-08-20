@@ -75,15 +75,37 @@
             $subtotal = $price;
             $total += $subtotal;
 
+            $flavornames = [
+                1 => "Vanilla",
+                2 => "Chocolate",
+                3 => "Strawberry",
+                4 => "Red Velvet",
+                5 => "Lemon",
+                6 => "Blueberry",
+                7 => "Coconut",
+                8 => "Carrot",
+                9 => "Coffee",
+                10 => "Pistachio"
+            ];
+            
+
             echo "<tr>";
-            echo "<td>Custom Cake #{$customCakeId}</td>";
+            echo "<td>";
+            echo "<img src='Images/custom cake.avif' alt='Custom Cake'>";
+            echo "Custom Cake #$customCakeId";
+            echo "</td>";
             echo "<td>
                     <ul>
                         <li>Size: {$size}</li>
                         <li>Flavors: <ul>";
             foreach ($flavors as $flavorId => $flavorPercentage) {
                 if ($flavorPercentage != 0) {
-                    echo "<li>{$flavorPercentage}% " . htmlspecialchars($flavorId) . "</li>";
+                    foreach ($flavornames as $id => $name) {
+                        if ($id == $flavorId) {
+                            echo "<li>{$flavorPercentage}% " . htmlspecialchars($name) . "</li>";
+                            break;
+                        }
+                    }
                 }
             }
             echo "</ul></li>
@@ -144,7 +166,7 @@
         }
 
         // Display total
-        echo "<tr><td colspan='3'>Total:</td><td>$" . number_format($total, 2) . "</td><td></td></tr>";
+        echo "<tr><td>Total: $" . number_format($total, 2) . "</td></tr>";
 
         // Action buttons
         echo "<tr>";

@@ -61,8 +61,7 @@ if (!isset($_SESSION['email'])) {
             }
             ?>
         </form>
-        <div class="line">
-        </div>
+        <div class="line"></div>
 
         <div class="products">
             <?php
@@ -78,7 +77,12 @@ if (!isset($_SESSION['email'])) {
                     echo "<img src='Images/" . $row["image"] . "' alt='" . $row["name"] . "'>";
                     echo "<h2>" . $row["name"] . "</h2>";
                     echo "<div class='inner-card'>";
-                    echo "<h3> <p> $" . $row["price"] . "</p> </h3>";
+                    if ($row["Quantity"] < 1) {
+                        echo "<h3><span>Out of stock</span></h3>";
+                    }
+                    else{
+                        echo "<h3><p>$" . $row["price"] . "</p></h3>";
+                    }
                     echo "<span class='material-symbols-outlined'>favorite</span>";
                     echo "</div>";
                     echo "<span id='shopping-cart' class='material-symbols-outlined'>shopping_cart</span>";
@@ -97,12 +101,12 @@ if (!isset($_SESSION['email'])) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.category-filter').change(function (e) {
+        $(document).ready(function() {
+            $('.category-filter').change(function(e) {
                 e.preventDefault(); // Prevent the form from submitting normally
 
                 var selectedCategories = [];
-                $('.category-filter input:checked').each(function () {
+                $('.category-filter input:checked').each(function() {
                     selectedCategories.push($(this).val());
                 });
 
@@ -112,7 +116,7 @@ if (!isset($_SESSION['email'])) {
                     data: {
                         categories: selectedCategories
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('.products').html(response);
                     }
                 });
@@ -132,7 +136,6 @@ if (!isset($_SESSION['email'])) {
         echo '<button onclick="window.location.href=\'Cart.php\'">View Cart</button>';
         echo '</div>';
         echo '</div>';
-
     }
     ?>
 
