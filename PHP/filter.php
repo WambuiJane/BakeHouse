@@ -25,10 +25,14 @@ if ($result === false) {
             echo "<img src='Images/" . $row["image"] . "' alt='" . $row["name"] . "'>";
             echo "<h2>" . $row["name"] . "</h2>";
             echo "<div class='inner-card'>";
-            echo "<h3><p>$" . $row["price"] . "</p></h3>";
+            if ($row["Quantity"] < 1) {
+                echo "<h3><span>Out of stock</span></h3>";
+            } else {
+                echo "<h3><p>$" . $row["price"] . "</p></h3>";
+            }
             echo "<span class='material-symbols-outlined'>favorite</span>";
             echo "</div>";
-            echo "<span id='shopping-cart' class='material-symbols-outlined'>shopping_cart</span>";
+            echo "<span class='shopping-cart material-symbols-outlined'>shopping_cart</span>";
             echo "<input type='hidden' name='productId' value='" . $row["id"] . "'>";
             echo "<input type='hidden' name='action' value='add'>";
             echo "</form>";
@@ -37,5 +41,3 @@ if ($result === false) {
         echo "<p>No cakes available.</p>";
     }
 }
-?>
-

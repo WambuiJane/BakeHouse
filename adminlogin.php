@@ -20,6 +20,11 @@
             }
         ?>
         </p>
+        <div class="buttons">
+            <a href="Dashboard.php">Home</a>
+            <a href="signup.php">Sign Up</a>
+            <a href="index.php">Customer</a>
+        </div>
     </div>
     <div class="main">
         <div class="image">
@@ -29,11 +34,11 @@
     <p>Log in your account</p>
     <div class="input">
         <h1>Email</h1>
-        <input type="email" name="email" placeholder="Enter your Email" required>
+        <input type="email" name="email" style="font-family:Arial, FontAwesome;" placeholder="&#xf0e0;  Enter your Email" required>
     </div>
     <div class="input">
         <h1>Password</h1>
-        <input type="password" name="password" placeholder="Enter your Password" required>
+        <input type="password" name="password" style="font-family:Arial, FontAwesome;" placeholder="&#xf023;  Enter your Password" required>
     </div>
     <div class="submit">
         <button type="submit">LOGIN</button>

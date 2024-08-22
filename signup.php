@@ -22,9 +22,9 @@
             ?>
         </p>
         <div class="buttons">
-            <a href="index.php">Home</a>
+            <a href="Dashboard.php">Home</a>
             <a href="signup.php">Sign Up</a>
-            <a href="login.php">Login</a>
+            <a href="index.php">Login</a>
         </div>
     </div>
     <div class="main">

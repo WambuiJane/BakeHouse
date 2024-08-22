@@ -31,4 +31,3 @@ echo $access_token;
 
 // Close cURL resource
 curl_close($curl);
-?>

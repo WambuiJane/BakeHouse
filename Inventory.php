@@ -246,5 +246,4 @@ $result = $stmt->get_result();
 
     </section>
 </body>
-
 </html>

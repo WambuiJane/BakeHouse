@@ -19,7 +19,7 @@ if (isset($_POST['selected_orders']) && is_array($_POST['selected_orders'])) {
             echo "Error preparing statement for order ID: $order_id<br>";
         }
     }
-
+    
     $conn->close();
     header('Location: ../admin.php?status=success');
     exit();

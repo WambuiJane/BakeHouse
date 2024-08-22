@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include 'PHP/session_check.php';
+
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
@@ -136,10 +138,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["place_custom_order"]))
             <a href="#about-us">About Us</a>
             <a href="#">Order</a>
         </div>
-        <div class="nav-logos">
+        <div class="nav-logos" <?php echo $display; ?>>
             <span class="material-symbols-outlined" onclick="window.location.href='search.php'">search</span>
             <span class="material-symbols-outlined" onclick="window.location.href='Cart.php'">shopping_cart</span>
-            <span class="material-symbols-outlined" id="login-btn" onclick="window.location.href='index.php'">account_circle</span>
+            <span class="material-symbols-outlined" onclick="toggleDropdown()">account_circle</span>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="settings.php">Profile <span class="material-symbols-outlined">person</span></a>
+                <a href="PHP/logout.php">Log Out <span class="material-symbols-outlined">logout</span></a>
+            </div>
         </div>
     </div>
    
@@ -220,6 +226,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["place_custom_order"]))
             }
         });
     });
+
+    // JS function to toggle the dropdown menu
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById("dropdown-menu");
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+        }
     </script>
 </body>
 </html>

@@ -79,13 +79,12 @@ if (!isset($_SESSION['email'])) {
                     echo "<div class='inner-card'>";
                     if ($row["Quantity"] < 1) {
                         echo "<h3><span>Out of stock</span></h3>";
-                    }
-                    else{
+                    } else {
                         echo "<h3><p>$" . $row["price"] . "</p></h3>";
                     }
                     echo "<span class='material-symbols-outlined'>favorite</span>";
                     echo "</div>";
-                    echo "<span id='shopping-cart' class='material-symbols-outlined'>shopping_cart</span>";
+                    echo "<span class='shopping-cart material-symbols-outlined'>shopping_cart</span>";
                     echo "<input type='hidden' name='productId' value='" . $row["id"] . "'>";
                     echo "<input type='hidden' name='action' value='add'>";
                     echo "</form>";
@@ -101,12 +100,21 @@ if (!isset($_SESSION['email'])) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.category-filter').change(function(e) {
-                e.preventDefault(); // Prevent the form from submitting normally
+        $(document).ready(function () {
+            function attachCartListeners() {
+                $('.shopping-cart').off('click').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).closest('form').submit();
+                });
+            }
+
+            attachCartListeners();
+
+            $('.category-filter input').change(function (e) {
+                e.preventDefault();
 
                 var selectedCategories = [];
-                $('.category-filter input:checked').each(function() {
+                $('.category-filter input:checked').each(function () {
                     selectedCategories.push($(this).val());
                 });
 
@@ -116,15 +124,15 @@ if (!isset($_SESSION['email'])) {
                     data: {
                         categories: selectedCategories
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $('.products').html(response);
+                        attachCartListeners(); // Reattach listeners after AJAX call
                     }
                 });
             });
         });
     </script>
-
-    </div>
+    
     <?php
     if (isset($_GET['feedback'])) {
         echo '<div class="error">';
@@ -140,14 +148,4 @@ if (!isset($_SESSION['email'])) {
     ?>
 
 </body>
-<script>
-    //script to trigger the cart button to add to cart
-    const cartButtons = document.querySelectorAll('#shopping-cart');
-    cartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            button.parentElement.submit();
-        });
-    });
-</script>
-
 </html>

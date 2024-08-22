@@ -9,9 +9,9 @@ $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 if ($row > 0) {
-    $display = "flex";
+    $displayveri= "flex";
 } else {
-    $display = "none";
+    $displayveri = "none";
 }
 
 // post action
@@ -50,7 +50,7 @@ if (isset($_POST['verification'])) {
 </head>
 
 <body>
-    <div class="verify" style="display: <?php echo $display; ?>;">
+    <div class="verify" style="display: <?php echo $displayveri; ?>;">
         <form action="" method="POST">
             <h1>Verify Your Account</h1>
             <p>Check your email for a verification code</p>

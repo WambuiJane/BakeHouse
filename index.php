@@ -22,7 +22,7 @@
         </p>
 
         <div class="buttons">
-            <a href="index.php">Home</a>
+            <a href="Dashboard.php">Home</a>
             <a href="signup.php">Sign Up</a>
             <a href="adminlogin.php">Admin</a>
         </div>
