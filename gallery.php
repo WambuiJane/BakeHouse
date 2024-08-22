@@ -32,7 +32,11 @@ if (!isset($_SESSION['email'])) {
             <span class="material-symbols-outlined">search</span>
             <span class="material-symbols-outlined" onclick="window.location.href='Cart.php'">shopping_cart</span>
             <span class="material-symbols-outlined" id="login-btn">account_circle</span>
-        </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="settings.php">Profile <span class="material-symbols-outlined">person</span></a>
+                <a href="PHP/logout.php">Log Out <span class="material-symbols-outlined">logout</span></a>
+            </div>
+        </div> 
     </div>
     <div class="container">
         <form class="filters" method="post" action="">
@@ -100,6 +104,10 @@ if (!isset($_SESSION['email'])) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById("dropdown-menu");
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+        }
         $(document).ready(function () {
             function attachCartListeners() {
                 $('.shopping-cart').off('click').on('click', function(e) {

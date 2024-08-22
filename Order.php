@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include 'PHP/session_check.php';
 
 if (!isset($_SESSION['email'])) {

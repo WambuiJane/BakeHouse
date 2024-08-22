@@ -131,6 +131,11 @@ $formattedTotal = number_format($total, 2);
 
     <script src="https://www.paypal.com/sdk/js?client-id=Aazr50ohh5iut8PVxFMB3PRER5U5q3i06V_RxfZCcDzNLztgc6im-mDtkg0GMsJdnIZuf0BYM_f_VxFV&components=buttons"></script>
     <script>
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById("dropdown-menu");
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+        }
+        
         paypal.Buttons({
             createOrder: function(data, actions) {
                 return fetch('PHP/create-order.php', {
