@@ -55,7 +55,7 @@ $result = $stmt->get_result();
             <li><a href="AdminOrders.php">Orders</a><span class="material-symbols-outlined">shopping_cart</span></li>
             <li><a href="Customers.php">Customers</a><span class="material-symbols-outlined">groups</span></li>
             <li><a href="Inventory.php">Inventory</a><span class="material-symbols-outlined">inventory</span></li>
-            <li><a href="logout.php">Logout</a><span class="material-symbols-outlined">logout</span></li>
+            <li><a href="PHP/logout.php">Logout</a><span class="material-symbols-outlined">logout</span></li>
         </ul>
     </nav>
     <section>
@@ -68,7 +68,7 @@ $result = $stmt->get_result();
         echo "<table>";
         echo "<tr>";
         echo "<th>Order ID</th>";
-        echo "<th>PayPal Order ID</th>";
+        echo "<th>Mpesa Order ID</th>";
         echo "<th>Order Date</th>";
         echo "<th>Order Status</th>";
         echo "<th>Total</th>";
@@ -77,7 +77,7 @@ $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row['Order_Id']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['Paypal_Id']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['Paypal_Id']). "</td>";
             echo "<td>" . htmlspecialchars($row['Date']) . "</td>";
             echo "<td>" . htmlspecialchars($row['OrderStatus']) . "</td>";
             echo "<td>" . htmlspecialchars($row['Price']) . "</td>";

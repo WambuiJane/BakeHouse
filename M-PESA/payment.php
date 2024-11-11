@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Include gen_token.php to fetch the access token
+// Include token.php to fetch the access token
 ob_start();
 include 'token.php';
 include '../php/connect.php';

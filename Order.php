@@ -17,15 +17,15 @@ function calculateCustomCakePrice($size, $flavors, $additionalOptions = []) {
     // Price modifiers for different flavors (percentage increase)
     $flavorModifiers = [
         1 => 0,    // Vanilla (base flavor, no extra charge)
-        2 => 10,   // Chocolate (10% price increase)
-        3 => 15,   // Strawberry (15% price increase)
-        4 => 20,   // Red Velvet (20% price increase)
-        5 => 20,
-        6 => 25,
-        7 => 25,
-        8 => 20,
-        9 => 15,
-        10 => 25
+        2 => 5,   // Chocolate (5% price increase)
+        3 => 10,   // Strawberry (10% price increase)
+        4 => 15,   // Red Velvet (15% price increase)
+        5 => 15,
+        6 => 20,
+        7 => 20,
+        8 => 15,
+        9 => 10,
+        10 => 20
     ];
 
     // Start with the base price for the selected size
@@ -132,8 +132,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["place_custom_order"]))
 <div class="navbar">
         <div class="nav-links">
             <h1>BAKE HOUSE</h1>
-            <a href="#hero">Home</a>
-            <a href="#about-us">About Us</a>
+            <a href="Dashboard.php">Home</a>
+            <a href="Dashboard.php #about-us">About Us</a>
             <a href="#">Order</a>
         </div>
         <div class="nav-logos" <?php echo $display; ?>>

@@ -41,7 +41,7 @@ $result = $stmt->get_result();
             <li><a href="AdminOrders.php.">Orders</a><span class="material-symbols-outlined">shopping_cart</span></li>
             <li><a href="Customers.php">Customers</a><span class="material-symbols-outlined">groups</span></li>
             <li><a href="Inventory.php.">Inventory</a><span class="material-symbols-outlined">inventory</span></li>
-            <li><a href="logout.php">Logout</a><span class="material-symbols-outlined">logout</span></li>
+            <li><a href="PHP/logout.php">Logout</a><span class="material-symbols-outlined">logout</span></li>
         </ul>
     </nav>
     <section>
