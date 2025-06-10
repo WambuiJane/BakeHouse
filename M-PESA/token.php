@@ -26,5 +26,6 @@ if (!isset($response->access_token)) {
 
 $accessToken = $response->access_token;
 
+echo $response->access_token;
 // Close cURL resource
 curl_close($curl);

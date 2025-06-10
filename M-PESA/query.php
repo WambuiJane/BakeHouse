@@ -4,21 +4,23 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-include '../PHP/connect.php';
+// Get access token
+ob_start();
+include 'token.php';
+$accessToken = ob_get_clean();
+
+require_once '../PHP/connect.php';
 
 function getProduct($productId) {
     global $conn;
-
     $sql = "SELECT * FROM products WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        error_log("Database query error: " . $conn->error);
         return null;
     }
-    $stmt->bind_param("s", $productId);
+    $stmt->bind_param("i", $productId);
     $stmt->execute();
     $result = $stmt->get_result();
-
     return $result->num_rows > 0 ? $result->fetch_assoc() : null;
 }
 
@@ -59,13 +61,8 @@ foreach ($customCart as $customCakeId => $customCake) {
 
 if (isset($_GET['checkoutRequestID'])) {
     $checkoutRequestID = $_GET['checkoutRequestID'];
-
-    ob_start();
-    include 'token.php';
-    $accessToken = ob_get_clean();
-
-    $retryCount = 5;
-    $retryInterval = 10;
+    $retryCount = 10;
+    $retryInterval = 2;
     $paymentStatusUpdated = false;
 
     while ($retryCount > 0 && !$paymentStatusUpdated) {
@@ -79,7 +76,7 @@ if (isset($_GET['checkoutRequestID'])) {
 
         $shortCode = '174379';
         $timestamp = date('YmdHis');
-        $passKey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'; // Sandbox Pass Key
+        $passKey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
         $password = base64_encode($shortCode . $passKey . $timestamp);
 
         $requestBody = json_encode([
@@ -103,10 +100,12 @@ if (isset($_GET['checkoutRequestID'])) {
 
         $responseDecoded = json_decode($response, true);
 
-        if (isset($responseDecoded['ResultCode']) && $responseDecoded['ResultCode'] == 0) {
+        // Fixed: Compare as string
+        if (isset($responseDecoded['ResultCode']) && $responseDecoded['ResultCode'] == '0') {
             $paymentStatusUpdated = true;
             $email = $_SESSION['email'];
 
+            // Get user details
             $sql = "SELECT * FROM user WHERE email = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $email);
@@ -117,11 +116,13 @@ if (isset($_GET['checkoutRequestID'])) {
             $date = date("Y-m-d H:i:s");
             $orderStatus = "Paid";
 
+            // Insert ticket
             $sql = "INSERT INTO tickets (user_email, PayPalOrderId, OrderDate, OrderStatus, total) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssss", $email, $checkoutRequestID, $date, $orderStatus, $_SESSION['price']);
             $stmt->execute();
 
+            // Send email
             try {
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();
@@ -134,52 +135,45 @@ if (isset($_GET['checkoutRequestID'])) {
                 $mail->setFrom('no-reply@bakehouse.com', 'Jane Karuga');
                 $mail->addAddress($email);
                 $mail->Subject = 'Payment Confirmation';
-
                 $mail->Body = "Dear Customer, Your payment was successful. Your order will be processed shortly. Thank you for shopping with us.";
                 $mail->send();
-
             } catch (Exception $e) {
-                echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                error_log("Email error: " . $e->getMessage());
             }
 
-            // Add th Orders to the database
-            foreach ($cartItems as $item) {
-                $productId = $item['id'];
-                $quantity = $item['quantity'];
-                $price = $item['price'];
-                $subtotal = $item['subtotal'];
+            // Process cart items
+            $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+            $customCart = isset($_SESSION['customCart']) ? $_SESSION['customCart'] : [];
 
-                // check if the cake is already in the database and if not create a new record
-                $sql = "SELECT * FROM products WHERE id = ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("i", $productId);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                $product = $result->fetch_assoc();
-                $customId = 7;
-                $image = "custom cake.avif";
-
+            // Insert regular products
+            foreach ($cart as $productId => $quantity) {
+                $product = getProduct($productId);
                 if ($product) {
-                    $sql = "UPDATE products SET Quantity = Quantity - ? WHERE id = ?";
+                    $price = $product['price'];
+                    $subtotal = $price * $quantity;
+                    
+                    $sql = "INSERT INTO orders (User_Id, Cake_Id, Paypal_Id, Quantity, Price, Subtotal) VALUES (?, ?, ?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("ii", $quantity, $productId);
-                    $stmt->execute();
-                }else{
-                    $sql = "INSERT INTO products (id, name, price, image, category_id) VALUES (?, ?, ?, ?, ?)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("isssi", $productId, $item['name'], $price, $image, $customId);
+                    $stmt->bind_param("iisiss", $userId, $productId, $checkoutRequestID, $quantity, $price, $subtotal);
                     $stmt->execute();
                 }
-                
+            }
 
-                $sql = "INSERT INTO orders (User_Id, Cake_Id, Paypal_Id, Quantity, Price, Subtotal) VALUES (?, ?, ?, ?, ?, ?)";
+            // Insert custom cakes
+            foreach ($customCart as $customId => $customCake) {
+                $price = $customCake['price'];
+                $sql = "INSERT INTO custom_orders (User_Id, CustomId, Name, Price, Image) VALUES (?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("iisiss", $userId, $productId, $checkoutRequestID,$quantity, $price, $subtotal);
+                $stmt->bind_param("issss", $userId, $customId, "Custom Cake #" . $customId, $price, "custom cake.avif");
                 $stmt->execute();
             }
+
+            // Clear cart
             unset($_SESSION['cart']);
             unset($_SESSION['customCart']);
-            header('Location: ../dashboard.php?message=' . urlencode("Payment was successful"));
+            
+            header('Location: ../Dashboard.php?message=' . urlencode("Payment was successful"));
+            exit;
         }
 
         $retryCount--;
@@ -187,8 +181,8 @@ if (isset($_GET['checkoutRequestID'])) {
     }
 
     if (!$paymentStatusUpdated) {
-        $feedback = "Payment was not successful";
-        header('Location: ../checkout.php?message=' . urlencode($feedback));
+        header('Location: ../checkout.php?message=' . urlencode("Payment was not successful"));
+        exit;
     }
 
 } else {

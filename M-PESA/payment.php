@@ -1,7 +1,9 @@
 <?php
 session_start();
 
+ob_start();
 require_once 'token.php'; 
+$accessToken = ob_get_clean();
 require_once '../PHP/connect.php';
 
 // Check if we got the access token
@@ -58,7 +60,7 @@ $curl_post_data = [
     'PartyA' => $phone,
     'PartyB' => $shortCode,
     'PhoneNumber' => $phone,
-    'CallBackURL' => 'https://bakehouse-production.up.railway.app/callback.php',
+    'CallBackURL' => 'https://bakehouse-production.up.railway.app/M-PESA/callback.php',
     'AccountReference' => 'BAKEHOUSE',
     'TransactionDesc' => 'Payment for BakeHouse Order'
 ];
