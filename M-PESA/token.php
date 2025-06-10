@@ -24,10 +24,7 @@ if (!isset($response->access_token)) {
     die("Error: Access token not found in response.");
 }
 
-$access_token = $response->access_token;
-
-// Output the access token
-echo $access_token;
+$accessToken = $response->access_token;
 
 // Close cURL resource
 curl_close($curl);
