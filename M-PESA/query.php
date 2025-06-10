@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-include '../php/connect.php';
+include '../PHP/connect.php';
 
 function getProduct($productId) {
     global $conn;
